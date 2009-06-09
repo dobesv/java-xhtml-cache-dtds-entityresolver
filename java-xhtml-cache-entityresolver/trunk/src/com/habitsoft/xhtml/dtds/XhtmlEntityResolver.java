@@ -1,6 +1,7 @@
 package com.habitsoft.xhtml.dtds;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -21,10 +22,13 @@ public class XhtmlEntityResolver implements EntityResolver {
     @Override
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         if(systemId.startsWith(XHTML_PREFIX)) {
-            InputSource inputSource = new InputSource(systemId);
-            inputSource.setPublicId(publicId);
-            inputSource.setByteStream(getClass().getResourceAsStream(systemId.substring(XHTML_PREFIX.length())));
-            return inputSource;
+            final InputStream resourceAsStream = getClass().getResourceAsStream(systemId.substring(XHTML_PREFIX.length()));
+            if(resourceAsStream != null) {
+                InputSource inputSource = new InputSource(systemId);
+                inputSource.setPublicId(publicId);
+                inputSource.setByteStream(resourceAsStream);
+                return inputSource;
+            }
         }
         if(next != null)
             return next.resolveEntity(publicId, systemId);
