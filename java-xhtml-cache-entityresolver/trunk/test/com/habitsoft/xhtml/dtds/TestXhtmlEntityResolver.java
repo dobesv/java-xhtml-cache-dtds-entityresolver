@@ -14,4 +14,12 @@ public class TestXhtmlEntityResolver {
         documentBuilder.setEntityResolver(new XhtmlEntityResolver(new FailingEntityResolver()));
         documentBuilder.parse(getClass().getResource("sample.xhtml").toString());
     }
+    
+    @Test
+    public void testResolverStrict() throws Exception {
+        DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        documentBuilder.setEntityResolver(new XhtmlEntityResolver(new FailingEntityResolver()));
+        documentBuilder.parse(getClass().getResource("sample-strict.xhtml").toString());
+    }
+    
 }
