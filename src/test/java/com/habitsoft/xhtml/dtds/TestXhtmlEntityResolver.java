@@ -30,7 +30,7 @@ public class TestXhtmlEntityResolver {
         try {
             documentBuilder.parse(getClass().getResource("sample-missing.xhtml").toString());
             Assert.fail("Should have failed to find the DTD!");
-        } catch(AssertionError ae) {
+        } catch(IllegalStateException ae) {
             assert ae.getMessage().startsWith("Entity should have been resolved from the cache");            
         }
     }

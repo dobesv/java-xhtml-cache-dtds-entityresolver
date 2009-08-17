@@ -9,7 +9,7 @@
 	<artifactId>html-dtd-cache</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>kiyaa GWT library</name>
+	<name>java-xhtml-cache-dtds-entityresolver</name>
 	
 	<properties>
 		<target.dir>.target</target.dir>
