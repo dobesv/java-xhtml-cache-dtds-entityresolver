@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info
+        organisation="com.habitsoft"
+        module="xhml-dtds"
+        status="integration"
+        revision="1.0">
+	</info>
+	<configurations>
+		<conf name="deploy" description="Dependencies needed to run during deployment"/>
+		<conf name="compile" extends="deploy" description="Deps needed for compilation, but not necessarily for deployment"/>
+		<conf name="test" extends="compile" description="Deps needed for testing but not necessarily for compilation or deployment"/>
+		<conf name="sources" description="Source code"/>
+	</configurations>
+	<dependencies defaultconf="deploy">
+		<dependency org="junit" name="junit" rev="4.6" conf="compile;test;sources"/> <!-- Should be test, except for MockApiConnection uses it and isn't in src/test :( -->
+	</dependencies>
+</ivy-module>

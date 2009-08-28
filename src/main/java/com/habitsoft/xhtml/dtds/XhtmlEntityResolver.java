@@ -1,7 +1,7 @@
 package com.habitsoft.xhtml.dtds;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -22,13 +22,20 @@ public class XhtmlEntityResolver implements EntityResolver {
     @Override
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         if(systemId.startsWith(XHTML_PREFIX)) {
-            final InputStream resourceAsStream = getClass().getResourceAsStream(systemId.substring(XHTML_PREFIX.length()));
-            if(resourceAsStream != null) {
-                InputSource inputSource = new InputSource(systemId);
+            String name = systemId.substring(XHTML_PREFIX.length());
+			//final InputStream resourceAsStream = getClass().getResourceAsStream(name);
+            URL resource = getClass().getResource(name);
+            if(resource != null) {
+				InputSource inputSource = new InputSource(resource.toExternalForm());
                 inputSource.setPublicId(publicId);
-                inputSource.setByteStream(resourceAsStream);
+                //inputSource.setByteStream(resourceAsStream);
                 return inputSource;
             }
+        }
+        
+        // Let file: URLs just get loaded using the default mechanism
+        if(systemId.startsWith("file:") || systemId.startsWith("jar:")) {
+        	return null;
         }
         if(next != null)
             return next.resolveEntity(publicId, systemId);
