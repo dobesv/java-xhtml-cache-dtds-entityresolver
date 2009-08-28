@@ -1,5 +1,7 @@
 package com.habitsoft.xhtml.dtds;
 
+import static org.junit.Assert.assertNotNull;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -9,6 +11,15 @@ import org.junit.Test;
 
 public class TestXhtmlEntityResolver {
 
+	@Test
+	public void checkClasspath1() throws Exception {
+		assertNotNull(XhtmlEntityResolver.class.getResourceAsStream("xhtml1-strict.dtd"));
+	}
+	@Test
+	public void checkClasspath2() throws Exception {
+		assertNotNull(XhtmlEntityResolver.class.getResourceAsStream("xhtml1-transitional.dtd"));
+	}
+	
     @Test
     public void testResolver() throws Exception {
         DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
